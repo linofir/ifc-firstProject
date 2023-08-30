@@ -1,0 +1,21 @@
+{
+  "name": "ifc-firstproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup --bundleConfigAsCjs -c ./root/rollup.config.js",
+    "watch": "rollup --bundleConfigAsCjs -w -c ./root/rollup.config.js"
+  },
+  "author": "Lino",
+  "license": "MIT",
+  "dependencies": {
+    "web-ifc-three": "^0.0.125"
+  },
+  "devDependencies": {
+    "@open-wc/building-rollup": "^3.0.2",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "rollup": "^3.28.1"
+  }
+}
