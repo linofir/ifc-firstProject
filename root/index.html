@@ -9,9 +9,42 @@
     <title>IFC.js</title>
 </head>
 <body>
-    <input type="file" id="file-input" accept=".ifc, .ifcXML, .ifcZIP">
+    <div id="button-container">
+      <input type="file" id="file-input" accept=".ifc, .ifcXML, .ifcZIP">
+      <input type="button" id="memory-button" value="Release memory">
+    </div>
     <input type="text" id="pick-element">
     <canvas id="three-canvas"></canvas>
+    <div class="checkboxes">
+        <div>
+          <input checked="true" id="IFCWALLSTANDARDCASE" type="checkbox" value="IFCWALLSTANDARDCASE" />
+          Walls
+        </div>
+        <div>
+          <input checked="true" id="IFCSLAB" type="checkbox" value="IFCSLAB" />
+          Slabs
+        </div>
+        <div>
+          <input checked="true" id="IFCWINDOW" type="checkbox" value="IFCWINDOW" />
+          Windows
+        </div>
+        <div>
+          <input checked="true" id="IFCFURNISHINGELEMENT" type="checkbox" value="IFCFURNISHINGELEMENT" />
+          Furniture
+        </div>
+        <div>
+          <input checked="true" id="IFCDOOR" type="checkbox" value="IFCFURNISHINGELEMENT" />
+          Doors
+        </div>
+        <div>
+          <input checked="true" id="IFCMEMBER" type="checkbox" value="IFCMEMBER" />
+          Curtain wall structure
+        </div>
+        <div>
+          <input checked="true" id="IFCPLATE" type="checkbox" value="IFCPLATE" />
+          Curtain wall plates
+        </div>
+      </div>
     <script src="./bundle.js"></script>
 </body>
 </html>

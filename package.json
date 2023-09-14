@@ -11,6 +11,8 @@
   "author": "Lino",
   "license": "MIT",
   "dependencies": {
+    "http-server": "^14.1.1",
+    "stats.js": "^0.17.0",
     "web-ifc-three": "^0.0.125"
   },
   "devDependencies": {
