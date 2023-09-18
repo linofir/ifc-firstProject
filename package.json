@@ -5,19 +5,28 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup --bundleConfigAsCjs -c ./root/rollup.config.js",
-    "watch": "rollup --bundleConfigAsCjs -w -c ./root/rollup.config.js"
+    "build": "rollup --bundleConfigAsCjs -c ./rollup.config.js",
+    "watch": "rollup --bundleConfigAsCjs -w -c ./rollup.config.js",
+    "serve": "http-server -p 3000"
+
   },
   "author": "Lino",
   "license": "MIT",
   "dependencies": {
     "http-server": "^14.1.1",
+    "path": "^0.12.7",
     "stats.js": "^0.17.0",
     "web-ifc-three": "^0.0.125"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.19",
+    "@babel/preset-env": "^7.22.15",
     "@open-wc/building-rollup": "^3.0.2",
     "@rollup/plugin-node-resolve": "^15.2.1",
-    "rollup": "^3.28.1"
+    "rollup": "^3.28.1",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-css-only": "^4.3.0",
+    "rollup-plugin-eslint": "^7.0.0",
+    "rollup-plugin-postcss": "^4.0.2"
   }
 }
