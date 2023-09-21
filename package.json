@@ -5,15 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup --bundleConfigAsCjs -c ./root/rollup.config.js",
-    "watch": "rollup --bundleConfigAsCjs -w -c ./root/rollup.config.js"
+    "build": "rollup --bundleConfigAsCjs -c ./rollup.config.js && npm run copy-files",
+    "watch": "rollup --bundleConfigAsCjs -w -c ./rollup.config.js",
+    "copy-files": "copy .\\node_modules\\web-ifc\\web-ifc.wasm .\\ && copy .\\node_modules\\web-ifc\\web-ifc-mt.wasm .\\ && copy .\\node_modules\\web-ifc-three\\IFCWorker.js .\\ && copy .\\node_modules\\web-ifc-three\\IFCWorker.js.map .\\ "
   },
   "author": "Lino",
   "license": "MIT",
   "dependencies": {
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "client-zip": "^2.4.4",
     "http-server": "^14.1.1",
+    "node": "^20.6.0",
     "stats.js": "^0.17.0",
-    "web-ifc-three": "^0.0.125"
+    "three": "^0.149.0",
+    "web-ifc-three": "^0.0.125",
+    "web-three": "^0.0.0"
   },
   "devDependencies": {
     "@open-wc/building-rollup": "^3.0.2",
