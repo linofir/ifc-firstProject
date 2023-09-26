@@ -144,7 +144,7 @@ const selecAlltMat = new MeshLambertMaterial({
   depthTest: false,
 });
 
-const typesCategories = {};
+
 
 
 // user inputs

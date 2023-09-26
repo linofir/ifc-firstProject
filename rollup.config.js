@@ -1,18 +1,22 @@
 import resolve from "@rollup/plugin-node-resolve";
 import path from "path";
 import commonjs from "@rollup/plugin-commonjs";
+import babel from "@rollup/plugin-babel";
 
 export default {
   input: path.resolve(__dirname,"./src/main.js"),
   output: [
     {
       format: "cjs",
-      file: "./bundle.js",
+      file: "./public/bundle.js",
     },
   ],
   plugins: [resolve(),
-    commonjs()
+    commonjs(),
+    babel({
+        babelHelpers: 'bundled',
+        exclude: 'node_modules/**'
+        })
 
 ],
-  
 };
