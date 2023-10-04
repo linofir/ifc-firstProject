@@ -1,7 +1,7 @@
 import {IFCLoader} from 'web-ifc-three';
 import {acceleratedRaycast, computeBoundsTree, disposeBoundsTree} from 'three-mesh-bvh';
 import { ThreeScene } from './modules/Scene';
-import { LoadSet } from './modules/LoadSet';
+//import { User } from './modules/User';
 import { Picking    } from './modules/Picking'
 
 const ifcModels = [];
@@ -12,11 +12,12 @@ const Scene = new ThreeScene();
 const scene = Scene.scene;
 
 setupFileOpener();
-if(ifcModels.length > 0){
-    console.log('main', ifcModels[0], ifcModels[0].modelID)
-    
-}
+setupThreeMeshBVH();
+
+let modelCondition = false;
+
 const picking = new Picking(Scene, ifcModels, ifcAPI);
+//const user = new User(scene);
 
 
 
@@ -25,17 +26,21 @@ function setupThreeMeshBVH() {
         computeBoundsTree,
         disposeBoundsTree,
         acceleratedRaycast
-    );
-};
-
-
-function setupFileOpener() {
-    const input = document.querySelector('input[type="file"]');
-    if (!input) return;
-    input.addEventListener(
-        'change',
-        async (changed) => {
-            loadIFC(changed);
+        );
+    };
+    
+    
+    function setupFileOpener() {
+        const input = document.querySelector('input[type="file"]');
+        if (!input) return;
+        input.addEventListener(
+            'change',
+            async (changed) => {
+                loadIFC(changed);
+                if(modelCondition){
+                    console.log('main', ifcModels[0], ifcModels[0].modelID)
+                    
+                };
         },
         false
     );
@@ -53,6 +58,7 @@ function loadIFC(changed) {
         ifcAPI.setOnProgress((event) =>{
             let percent = (event.loaded/event.total) *100;
             let progress = Math.trunc(percent);
+            modelCondition = progress >= 100 ? true : false;
             
             console.log(`Loading progress: ${progress.toString( )}%`)
         })

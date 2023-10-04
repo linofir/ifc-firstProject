@@ -1,6 +1,7 @@
-import { AmbientLight, Color, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, GridHelper, AxesHelper } from 'three';
+import { AmbientLight, Color, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, GridHelper, AxesHelper, Clock } from 'three';
 import { OrbitControls } from '../../node_modules/three/examples/jsm/controls/OrbitControls';
 import Stats from 'stats.js/src/Stats';
+import { User } from './User';
 
 export class ThreeScene {
     constructor() {
@@ -12,6 +13,8 @@ export class ThreeScene {
         this.stats = new Stats();
         this.grid = new GridHelper(50,30);
         this.axes = new AxesHelper();
+        this.clock = new Clock();
+        this.user = new User(this.scene);
         this.setupScene();
     }
 
@@ -20,18 +23,24 @@ export class ThreeScene {
         this.setupLights();
         this.setupWindowResize();
         this.setupMonitoring();
-        this.setupAnimation();
         this.setupCamera();
         this.scene.add(this.grid);
         this.scene.add(this.axes);
+        this.renderer.setAnimationLoop(this.render.bind(this))
+        
+
     }
 
-    setupAnimation = () => {
+    render = () => {
+        const dt = this.clock.getDelta();
+
         this.stats.begin();
         this.controls.update();
         this.renderer.render(this.scene, this.camera);
+        this.user.update(dt);
         this.stats.end();
-        requestAnimationFrame(this.setupAnimation);
+        //this.user.controller.update(dt);
+        //requestAnimationFrame(this.render);
     }
 
     setupBasics() {
