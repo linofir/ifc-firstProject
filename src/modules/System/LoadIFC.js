@@ -3,15 +3,14 @@ import {acceleratedRaycast, computeBoundsTree, disposeBoundsTree} from 'three-me
 
 export class LoadIFC {
     constructor(scene) {
-
         this.ifcLoader = new IFCLoader();
-        this.ifcAPI = ifcLoader.ifcManager;
+        this.ifcAPI = this.ifcLoader.ifcManager;
 
-        this.ifcModels;
+        this.ifcModels = [];
         this.scene = scene.scene
 
-        setupFileOpener();
-        setupThreeMeshBVH();
+        this.setupFileOpener();
+        this.setupThreeMeshBVH();
 
     };
 
@@ -29,11 +28,8 @@ export class LoadIFC {
         input.addEventListener(
             'change',
             async (changed) => {
-                loadModel(changed);
-                if(modelCondition){
-                    console.log('main', this.ifcModels[0], this.ifcModels[0].modelID)
-                    
-                };
+                this.loadModel(changed);
+                
         },
         false
     );
@@ -48,10 +44,9 @@ loadModel(changed) {
             console.log(this.ifcAPI.state.models);
             this.scene.add(ifcModel)
         },
-        ifcAPI.setOnProgress((event) =>{
+        this.ifcAPI.setOnProgress((event) =>{
             let percent = (event.loaded/event.total) *100;
             let progress = Math.trunc(percent);
-            modelCondition = progress >= 100 ? true : false;
             
             console.log(`Loading progress: ${progress.toString( )}%`)
         })

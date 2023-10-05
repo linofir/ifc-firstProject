@@ -1,5 +1,5 @@
-import { ThreeScene } from './Scene';
-import { Picking    } from './Picking'
+import { ThreeScene } from './Components/Scene';
+import { Picking    } from './Components/Picking'
 import { LoadIFC } from './System/LoadIFC';
 
 

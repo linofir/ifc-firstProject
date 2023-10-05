@@ -1,5 +1,5 @@
 import { AmbientLight, Color, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, GridHelper, AxesHelper, Clock } from 'three';
-import { OrbitControls } from '../../node_modules/three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from '../../../node_modules/three/examples/jsm/controls/OrbitControls';
 import Stats from 'stats.js/src/Stats';
 import { User } from './User/User';
 
@@ -47,6 +47,7 @@ export class ThreeScene {
         this.scene.background = new Color(0xC4EBDD);
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        this.renderer.physicallyCorrectLights = true;
         this.camera.position.z = 5;
 
         this.axes.material.depthTest = false;
@@ -54,10 +55,10 @@ export class ThreeScene {
     }
 
     setupLights() {
-        const directionalLight1 = new DirectionalLight(0xffeeff, 0.8);
+        const directionalLight1 = new DirectionalLight(0xffeeff, 5);
         directionalLight1.position.set(1, 1, 1);
         this.scene.add(directionalLight1);
-        const directionalLight2 = new DirectionalLight(0xffffff, 0.8);
+        const directionalLight2 = new DirectionalLight(0xffffff, 5);
         directionalLight2.position.set(-1, 0.5, -1);
         this.scene.add(directionalLight2);
         const ambientLight = new AmbientLight(0xffffee, 0.25);
