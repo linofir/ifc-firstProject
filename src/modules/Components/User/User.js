@@ -1,6 +1,6 @@
 import { GLTFLoader } from '../../../../node_modules/three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from '../../../../node_modules/three/examples/jsm/loaders/DRACOLoader';
-import { Group, SphereGeometry, MeshBasicMaterial, Mesh } from 'three';
+import { Group, Raycaster} from 'three';
 import { Controller } from './Controller';
 
 
@@ -8,17 +8,11 @@ export class User {
     constructor(scene) {
         this.root = new Group();
         this.scene = scene;
-        // this.geometry = new SphereGeometry(5,18,8);
-        // this.material =  new MeshBasicMaterial( { color: 0xffff00 } );
-        // this.sphere = new Mesh( this.geometry, this.material ); 
-        //this.scene.add(this.sphere);
+        this.raycaster = new Raycaster();
 
         this.load(); 
 
-
         this.controller = new Controller(this);
-
-
 
     };
 
@@ -46,13 +40,15 @@ export class User {
                 });
 
                 this.scene.add(this.root)
-                
             }
         )
-
-
-
     };
+
+    rayIntersec(pos) {
+        this.raycaster.set(pos, this.root.quaternion );
+        this.intersecs = this.raycaster.intersectObject(this.ifcModels);
+        console.log(this.intersecs);
+    }
 
     update(dt) {
         this.controller.update(dt);
