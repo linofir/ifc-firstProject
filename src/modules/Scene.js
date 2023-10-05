@@ -1,7 +1,7 @@
 import { AmbientLight, Color, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, GridHelper, AxesHelper, Clock } from 'three';
 import { OrbitControls } from '../../node_modules/three/examples/jsm/controls/OrbitControls';
 import Stats from 'stats.js/src/Stats';
-import { User } from './User';
+import { User } from './User/User';
 
 export class ThreeScene {
     constructor() {

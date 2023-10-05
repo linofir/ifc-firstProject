@@ -1,5 +1,5 @@
-import { GLTFLoader } from '../../node_modules/three/examples/jsm/loaders/GLTFLoader';
-import { DRACOLoader } from '../../node_modules/three/examples/jsm/loaders/DRACOLoader';
+import { GLTFLoader } from '../../../node_modules/three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from '../../../node_modules/three/examples/jsm/loaders/DRACOLoader';
 import { Group, SphereGeometry, MeshBasicMaterial, Mesh } from 'three';
 import { Controller } from './Controller';
 

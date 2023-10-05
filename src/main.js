@@ -1,7 +1,6 @@
 import {IFCLoader} from 'web-ifc-three';
 import {acceleratedRaycast, computeBoundsTree, disposeBoundsTree} from 'three-mesh-bvh';
 import { ThreeScene } from './modules/Scene';
-//import { User } from './modules/User';
 import { Picking    } from './modules/Picking'
 
 const ifcModels = [];
