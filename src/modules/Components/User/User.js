@@ -10,20 +10,34 @@ export class User {
         this.scene = scene;
         this.raycaster = new Raycaster();
 
-        this.load(); 
+        this.setupFileOpener(); 
 
         this.controller = new Controller(this);
 
     };
 
-    load(){
-        const loader = new GLTFLoader().setPath('../../assets/');
+    setupFileOpener() {
+        const input = document.getElementById("gltf-file");
+        if (!input) return;
+        input.addEventListener(
+            'change',
+            (event) => {
+                this.load(event);
+                
+        },
+        false
+        );
+    }
+
+    load(event){
+        const gltfURL = URL.createObjectURL(event.target.files[0]);
+        const loader = new GLTFLoader();
         const dracoLoader = new DRACOLoader();
-        dracoLoader.setDecoderPath('../../node_modules/three/examples/jsm/libs/draco/');
+        dracoLoader.setDecoderPath('./draco/');
         loader.setDRACOLoader(dracoLoader);
 
         loader.load(
-            'eve2.glb',
+            gltfURL,
             (gltf) => {
                 this.root.add(gltf.scene);
                 this.object = gltf.scene;

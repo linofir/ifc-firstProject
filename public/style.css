@@ -27,10 +27,3 @@ html, body {
    margin-top: 1rem;
 }
 
-#close-button {
-    z-index: 1;
-    position: fixed;
-    top: 3rem;
-    padding: 0 2.9rem;
-    left: 7rem;
-}

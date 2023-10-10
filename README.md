@@ -13,9 +13,13 @@ import { mergeBufferGeometries } from '../three/examples/jsm/utils/BufferGeometr
 ```
 npm run watch
 ```
+- Run the server
+```
+npm start
+```
+-or
+    - install VSCode `Live Server` extension  
 
-- install VSCode `Live Server` extension  
+    - right click on `public/index.html` and `Open on Live Server`
 
-- right click on `public/index.html` and `Open on Live Server`
-
-TODO: adjust path to be able to run with http-server
+TODO: create a collision test.
