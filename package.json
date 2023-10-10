@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup --bundleConfigAsCjs -c ./rollup.config.js",
     "watch": "rollup --bundleConfigAsCjs -w -c ./rollup.config.js",
-    "copy-files": "copy .\\node_modules\\web-ifc\\web-ifc.wasm .\\ && copy .\\node_modules\\web-ifc\\web-ifc-mt.wasm .\\ && copy .\\node_modules\\web-ifc-three\\IFCWorker.js .\\ && copy .\\node_modules\\web-ifc-three\\IFCWorker.js.map .\\ "
+    "copy-files": "copy .\\node_modules\\web-ifc\\web-ifc.wasm .\\ && copy .\\node_modules\\web-ifc\\web-ifc-mt.wasm .\\ && copy .\\node_modules\\web-ifc-three\\IFCWorker.js .\\ && copy .\\node_modules\\web-ifc-three\\IFCWorker.js.map .\\ ",
+    "start": "lite-server -c bs-config.json"
   },
   "author": "Lino",
   "license": "MIT",
@@ -16,6 +17,7 @@
     "@rollup/plugin-commonjs": "^25.0.4",
     "client-zip": "^2.4.4",
     "http-server": "^14.1.1",
+    "lite-server": "^2.6.1",
     "node": "^20.6.0",
     "stats.js": "^0.17.0",
     "three": "^0.149.0",
