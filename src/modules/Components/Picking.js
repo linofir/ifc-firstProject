@@ -53,14 +53,15 @@ export class Picking {
           this.ifcAPI.removeSubset(this.ifcModels[0].modelID, this.selecAlltMat);
           console.log("db");
         });
-        document.addEventListener("keydown", (e) =>{
-          if(e.key == "s" || e.key == "S"){
-            console.log("s pressed")
-            this.printSpatialStructure();
+        //moved to modelInfo
+        // document.addEventListener("keydown", (e) =>{
+        //   if(e.key == "s" || e.key == "S"){
+        //     console.log("s pressed")
+        //     this.printSpatialStructure();
 
-          };
+        //   };
 
-        }) 
+        // }) 
 
         document.addEventListener("contextmenu", (e) => this.rightClick(e))
 

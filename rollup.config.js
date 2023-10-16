@@ -2,6 +2,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import path from "path";
 import commonjs from "@rollup/plugin-commonjs";
 import babel from "@rollup/plugin-babel";
+import json from "@rollup/plugin-json";
 
 export default {
   input: path.resolve(__dirname,"./src/main.js"),
@@ -16,7 +17,8 @@ export default {
     babel({
         babelHelpers: 'bundled',
         exclude: 'node_modules/**'
-        })
+        }),
+    json()
 
 ],
 };
