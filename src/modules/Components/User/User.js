@@ -5,17 +5,18 @@ import { Controller } from './Controller';
 
 
 export class User {
-    constructor(scene) {
+    constructor(scene, ifcModels) {
         this.root = new Group();
-        this.scene = scene;
+        this.scene = scene.scene;
+        this.ifcModels = ifcModels
         this.raycaster = new Raycaster();
 
         this.setupFileOpener(); 
 
         this.controller = new Controller(this);
-
+        
     };
-
+    
     setupFileOpener() {
         const input = document.getElementById("gltf-file");
         if (!input) return;
@@ -24,38 +25,44 @@ export class User {
             (event) => {
                 this.load(event);
                 
-        },
-        false
-        );
-    }
-
-    load(event){
-        const gltfURL = URL.createObjectURL(event.target.files[0]);
-        const loader = new GLTFLoader();
-        const dracoLoader = new DRACOLoader();
-        dracoLoader.setDecoderPath('./draco/');
-        loader.setDRACOLoader(dracoLoader);
-
-        loader.load(
-            gltfURL,
-            (gltf) => {
-                this.root.add(gltf.scene);
-                this.object = gltf.scene;
-                this.object.frustumCulled = false;
-
-                const scale = 1.2;
-                this.object.scale.set(scale, scale, scale);
-
-                this.object.traverse( child => {
-                    if ( child.isMesh){
-                        child.castShadow = true;
-						child.frustumCulled = false;
+            },
+            false
+            );
+        }
+        
+        async load(event){
+            try{
+                const gltfURL = URL.createObjectURL(event.target.files[0]);
+                const loader = new GLTFLoader();
+                const dracoLoader = new DRACOLoader();
+                dracoLoader.setDecoderPath('./draco/');
+                loader.setDRACOLoader(dracoLoader);
+                
+                loader.load(
+                    gltfURL,
+                    (gltf) => {
+                        this.root.add(gltf.scene);
+                        this.object = gltf.scene;
+                        this.object.frustumCulled = false;
+                        
+                        const scale = 1.2;
+                        this.object.scale.set(scale, scale, scale);
+                        
+                        this.object.traverse( child => {
+                            if ( child.isMesh){
+                                child.castShadow = true;
+                                child.frustumCulled = false;
+                            }
+                        });
+                        
+                        this.scene.add(this.root)
+                        console.log(this.ifcModels);
                     }
-                });
+            )
 
-                this.scene.add(this.root)
-            }
-        )
+        }catch(error){
+            console.log( "errro no load gltf:", error);
+        }
     };
 
     rayIntersec(pos) {
