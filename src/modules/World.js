@@ -18,7 +18,7 @@ export class World {
 
         let picking = new Picking(this.scene, ifcModels, ifcAPI);
         let modelInfo = new ModelInfo(ifcModels,ifcAPI);
-        this.user = new User(this.scene, ifcModels);
+        this.user = new User(this.scene, ifcModels, ifcAPI);
 
 
 

@@ -1,21 +1,38 @@
 import { GLTFLoader } from '../../../../node_modules/three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from '../../../../node_modules/three/examples/jsm/loaders/DRACOLoader';
-import { Group, Raycaster} from 'three';
+import { Group, Mesh, MeshBasicMaterial, Raycaster, SphereGeometry, Vector3} from 'three';
 import { Controller } from './Controller';
 
 
 export class User {
-    constructor(scene, ifcModels) {
+    constructor(scene, ifcModels, ifcAPI) {
         this.root = new Group();
         this.scene = scene.scene;
-        this.ifcModels = ifcModels
+        this.ifcModels = ifcModels;
+        this.ifcAPI = ifcAPI;
         this.raycaster = new Raycaster();
+
+
+        this.hit = false;
 
         this.setupFileOpener(); 
 
         this.controller = new Controller(this);
+        this.tempVec = new Vector3(1,1,1);
+        
+        
+
         
     };
+
+    testSphere()
+    {
+        const geometry = new SphereGeometry(3);
+        const material = new MeshBasicMaterial();
+        this.sphere = new Mesh(geometry, material);  
+        this.sphere.position.set(10,0,10);
+        this.scene.add(this.sphere);
+    }
     
     setupFileOpener() {
         const input = document.getElementById("gltf-file");
@@ -55,8 +72,8 @@ export class User {
                             }
                         });
                         
-                        this.scene.add(this.root)
-                        console.log(this.ifcModels);
+                        this.scene.add(this.root);
+                        this.initialSetup();
                     }
             )
 
@@ -65,12 +82,68 @@ export class User {
         }
     };
 
-    rayIntersec(pos) {
-        this.raycaster.set(pos, this.root.quaternion );
-        this.intersecs = this.raycaster.intersectObject(this.ifcModels);
-        console.log(this.intersecs);
+    initialSetup()
+    {
+        this.root.position.set(7,0,7);
+        this.root.lookAt(this.ifcModels[0].position);
+        
+        this.hitCheck();
+        
+    }
+    
+    hitCheck(){
+        let relativePosZ = Math.abs(this.ifcModels[0].position.z - this.root.position.z);
+        let relativePosX = Math.abs(this.ifcModels[0].position.x - this.root.position.x);
+        if(relativePosX <=4 || relativePosZ <= 4){
+            this.hit = true;
+        }else{
+            this.hit = false;
+        }
+    }
+    
+    rayIntersec(pastPosition) {
+        let pos = this.root.position.clone();
+        let direction = pos.clone().sub(pastPosition).normalize();
+
+        this.raycaster.set(pos, direction);
+        this.intersecs = this.raycaster.intersectObjects(this.ifcModels);
+        //console.log(this.intersecs);
+        return this.intersecs;
     }
 
+    pickID(pastPosition)
+    {
+        let firstObject = this.rayIntersec(pastPosition)[0];
+        if(firstObject){
+            const object= {
+                modelID: firstObject.object.modelID,
+                geometry: firstObject.object.geometry,
+                faceIndex: firstObject.faceIndex,
+                id: 0
+              };
+            const objectID = this.ifcAPI.getExpressId(object.geometry, object.faceIndex);
+            object.id = objectID;
+            //console.log(object);
+            return object;
+        }else{
+            console.log("nenhum objeto no campo de visão");
+        }
+    }
+
+    async getProps(pastPosition){
+        const targetObject = this.pickID(pastPosition);
+        if(targetObject){
+          try{
+            let objectProps = await this.ifcAPI.getItemProperties(targetObject.modelID, targetObject.id);
+            console.log(objectProps);
+            return objectProps;
+      
+          }catch(error){
+            console.log(error);
+          }
+        }
+      };
+    
     update(dt) {
         this.controller.update(dt);
     }

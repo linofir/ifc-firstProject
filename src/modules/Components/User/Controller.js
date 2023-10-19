@@ -10,6 +10,7 @@ export class Controller {
         this.forward = new Vector3(0, 0, 0.1);
         this.down = new Vector3(0, -1, 0);
         this.speed = 50;
+        this.tempVec = new Vector3(0,0,0);
 
         document.addEventListener('keydown',(e) => this.keyDown(e));
         document.addEventListener('keyup',(e) => this.keyUp(e));
@@ -100,8 +101,18 @@ export class Controller {
             
             //pos.z += this.move.up*0.1;
             this.user.root.position.copy(pos);
+            //this.user.hitCheck()
+            this.user.getProps(this.tempVec);
+            this.tempVec = this.user.root.position.clone();
 
-            //this.user.rayIntersecs(this.user.root.position);
+            // if(this.user.hit){
+            //     console.log("hit test", this.user.hit)
+            //     const posHit = this.user.root.position.clone().add(forward.multiplyScalar(-1));
+            //     this.user.root.position.copy(posHit);
+            // };
+            
+
+            //this.user.rayIntersecs(this.user.root.position)
 
         }else speed =0;
 

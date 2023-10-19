@@ -117,7 +117,6 @@ export class Picking {
         let mouseData = this.getMouseData(e);
         this.raycaster.setFromCamera(mouseData, this.camera);
         const intersec = this.raycaster.intersectObjects(this.ifcModels);
-      
         return intersec;
     };
 
